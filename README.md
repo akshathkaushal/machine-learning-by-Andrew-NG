@@ -1,2 +1,2 @@
-# machine-learning-by-Andrew-NG
-Contains solutions to exercises of the ML course by Andrew NG on Coursera
+# Machine Learning by [Andrew NG](https://en.wikipedia.org/wiki/Andrew_Ng)
+Contains solutions to exercises in the ML course by Andrew NG on [Coursera](https://www.coursera.org/learn/machine-learning)
