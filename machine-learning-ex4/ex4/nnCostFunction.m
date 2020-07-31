@@ -83,7 +83,17 @@ for k=1:num_labels
 
 end
 
+Theta1_ = Theta1;
+Theta2_ = Theta2;
+Theta1_(:, [1,1])=[];
+Theta2_(:,[1,1])=[];
 
+Theta1_ = Theta1_ .* Theta1_;
+Theta2_ = Theta2_ .* Theta2_;
+S1 = sum(sum(Theta1_));
+S2 = sum(sum(Theta2_));
+
+J = J + (lambda/(2*m))*(S1 + S2);
 
 % -------------------------------------------------------------
 
