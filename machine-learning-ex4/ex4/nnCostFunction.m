@@ -71,7 +71,12 @@ a2 = [ones(size(a2,1),1) a2];
 z3 = Theta2*a2';
 a3 = sigmoid(z3');
 
+size(a3); % 5000 x 10
+
+
 y_ = zeros(num_labels, m);
+
+size(y_); % 10 x 5000
 
 for i=1:m
     y_(y(i),i)=1;
@@ -96,6 +101,37 @@ S2 = sum(sum(Theta2_));
 J = J + (lambda/(2*m))*(S1 + S2);
 
 % -------------------------------------------------------------
+
+size(Theta2); % 10 x 26
+
+for t=1:m
+
+    a1 = X(t,:);
+    z2 = Theta1*a1'; % 25x1
+    a2 = sigmoid(z2); % 25x1
+    a2 = [1; a2]; % 26x1
+    z3 = Theta2*a2; % 10x1
+    a3 = sigmoid(z3); % 10x1
+    
+    delta_k3 = a3 - y_(:,t); % 10x1
+
+    z2 = [1; z2]; % 26x1
+   
+    delta_k2 = Theta2' * delta_k3 .* sigmoidGradient(z2); % 26x1
+    delta_k2 = delta_k2(2:end);
+
+    Theta2_grad = Theta2_grad + delta_k3*a2'; % 10x26
+    Theta1_grad = Theta1_grad + delta_k2*a1; % 25x401
+    
+end
+
+Theta2_grad = Theta2_grad/m;
+Theta1_grad = Theta1_grad/m;
+
+
+Theta2_grad(:, 2:end) = Theta2_grad(:, 2:end) + (lambda/m)*Theta2(:, 2:end) ;
+Theta1_grad(:, 2:end) = Theta1_grad(:, 2:end) + (lambda/m)*Theta1(:, 2:end) ;
+
 
 % =========================================================================
 
